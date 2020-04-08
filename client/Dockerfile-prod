@@ -1,0 +1,26 @@
+# Do the npm install or yarn install in the full image
+FROM mhart/alpine-node:12 AS builder
+WORKDIR /usr/src/app
+
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+COPY package.json /usr/src/app/package.json
+
+RUN npm install
+
+ARG REACT_APP_SERVICE_URL
+ENV REACT_APP_SERVICE_URL $REACT_APP_SERVICE_URL
+ARG NODE_ENV
+ENV NODE_ENV $NODE_ENV
+
+COPY . /usr/src/app
+RUN npm run build --production
+
+#########
+# FINAL #
+#########
+
+FROM mhart/alpine-node:base
+WORKDIR /app
+COPY --from=builder /usr/src/app .
+EXPOSE 3000
+CMD ["node_modules/.bin/next", "start"]
