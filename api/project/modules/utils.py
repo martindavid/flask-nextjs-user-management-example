@@ -1,12 +1,21 @@
+import os
 from http import HTTPStatus
 from functools import wraps
 from flask import request, jsonify
 from project.modules.users.models import Users
+from itsdangerous.url_safe import URLSafeSerializer
 
 
-def is_admin(user_id: int):
+def is_admin(user_id: int) -> bool:
     user = Users.query.filter_by(id=user_id).first()
     return user.admin
+
+
+def generate_token_from_data(data: dict, salt: str = "user_activation") -> str:
+    secret_key = os.environ.get('SECRET_KEY')
+    serializer = URLSafeSerializer(secret_key)
+    token = serializer.dumps(data, salt=salt)
+    return token
 
 
 def authenticate(f):
@@ -17,9 +26,9 @@ def authenticate(f):
             'message': 'Provide a valid auth token.'
         }
         auth_header = request.headers.get('Authorization')
+        print(auth_header)
         if not auth_header:
             return jsonify(response_object), HTTPStatus.FORBIDDEN
-
         auth_token = auth_header.split(" ")[1]
         resp = Users.decode_auth_token(auth_token)
         if isinstance(resp, str):

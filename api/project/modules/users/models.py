@@ -4,6 +4,7 @@ import logging
 from project.extensions import db, bcrypt
 from sqlalchemy_utils import Timestamp
 from flask import current_app
+from sqlalchemy import Column
 
 log = logging.getLogger(__name__)
 
@@ -13,30 +14,30 @@ class Users(db.Model, Timestamp):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(128), nullable=False, unique=True)
-    password = db.Column(db.String(255), nullable=False)
+    first_name = db.Column(db.String(255), nullable=False)
+    last_name = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(128), unique=True)
-    admin = db.Column(db.Boolean, default=False, nullable=False)
+    password = db.Column(db.String(255), nullable=False)
     active = db.Column(db.Boolean, default=True, nullable=False)
 
     def __init__(self,
-                 username: str,
+                 first_name: str,
+                 last_name: str,
                  password: str,
-                 email: str = '',
-                 admin: bool = False):
-        self.username = username
+                 email: str = ''):
+        self.first_name = first_name
+        self.last_name = last_name
         self.email = email
-        self.admin = admin
         self.password = bcrypt.generate_password_hash(
             password, current_app.config.get('BCRYPT_LOG_ROUNDS')).decode()
 
     def to_json(self):
         return {
             'id': self.id,
-            'username': self.username,
+            'firstName': self.first_name,
+            'lastName': self.last_name,
             'email': self.email,
             'active': self.active,
-            'admin': self.admin
         }
 
     def encode_auth_token(self, user_id: int):

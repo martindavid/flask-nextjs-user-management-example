@@ -2,9 +2,9 @@ import sys
 import unittest
 import coverage
 from flask.cli import FlaskGroup
+from project.modules.users.models import Users
 from project import create_app
 from project.extensions import db
-from project.modules.users.models import Users
 
 COV = coverage.coverage(branch=True,
                         include='project/*',
@@ -37,7 +37,8 @@ def test():
 def seed_db():
     """Seeds the database."""
     db.session.add(
-        Users(username='admin',
+        Users(first_name='admin',
+              last_name='admin',
               email='admin@gmail.com',
               password='verysecurepassword'))
     db.session.commit()
