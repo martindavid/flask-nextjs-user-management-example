@@ -6,21 +6,18 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
 } from "reactstrap";
 import Link from "next/link";
-import cookie from "js-cookie";
-import { logout } from "utils/auth";
+import { logout, useAuth } from "utils/auth";
+import Router from "next/router";
 
 export const Menu = () => {
-  let isLogin = false;
-  const token = cookie.get("token");
-  if (token) {
-    isLogin = true;
-  }
+  const auth = useAuth();
 
   const onLogoutClick = () => {
     logout();
+    Router.push("/login");
   };
 
   return (
@@ -31,18 +28,17 @@ export const Menu = () => {
         </Link>
       </NavItem>
       <NavItem>
-        <Link href="/components" passHref>
-          <NavLink>Components</NavLink>
+        <Link href="/page2" passHref>
+          <NavLink>Another Page</NavLink>
         </Link>
       </NavItem>
-      {!isLogin && (
+      {!auth ? (
         <NavItem>
           <Link href="/login" passHref>
             <NavLink>Login</NavLink>
           </Link>
         </NavItem>
-      )}
-      {isLogin && (
+      ) : (
         <UncontrolledDropdown nav inNavbar>
           <DropdownToggle nav caret>
             User Menu
@@ -54,7 +50,13 @@ export const Menu = () => {
               </Link>
             </DropdownItem>
             <DropdownItem>
-              <a onClick={onLogoutClick}>Logout</a>
+              <a
+                onClick={() => {
+                  onLogoutClick();
+                }}
+              >
+                Logout
+              </a>
             </DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>

@@ -7,20 +7,21 @@ export type GetUsersResult = { kind: "ok"; users: User[] } | GeneralApiProblem;
 export type GetUserResult = { kind: "ok"; user: User } | GeneralApiProblem;
 
 export class UserApi extends Api {
-  convertUser(raw): User {
+  convertUser(raw: any): User {
     return {
       id: raw.id,
-      username: raw.username,
+      firstName: raw.firstName,
+      lastName: raw.lastName,
       email: raw.email,
       admin: raw.admin,
-      active: raw.active
+      active: raw.active,
     };
   }
 
-  async getUserById(token: string): Promise<GetUserResult> {
+  async getUserById(token: string, id: number): Promise<GetUserResult> {
     this.apisauce.setHeader("Authorization", `Bearer ${token}`);
     const response: ApiResponse<any> = await this.apisauce.get(
-      `/api/v1/users/${token}`
+      `/api/v1/users/${id}`
     );
 
     if (!response.ok) {

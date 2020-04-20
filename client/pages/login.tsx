@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Layout } from "components/layout";
 import { TextInput } from "components/text-input";
 import { AuthApi } from "services";
 import { login } from "utils/auth";
@@ -41,43 +40,42 @@ const Login = () => {
   };
 
   return (
-    <Layout>
-      <Container className="col-12">
-        <LoginForm onSubmit={onSubmit}>
-          <TextInput
-            label="Email"
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            required
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setEmail(e.target.value);
-            }}
-          />
-          <TextInput
-            label="Password"
-            id="password"
-            name="password"
-            required
-            value={password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setPassword(e.target.value);
-            }}
-          />
-          <div className="form-group">
-            <button type="submit" className="btn btn-primary float-right">
-              Login
-            </button>
-          </div>
-        </LoginForm>
-        {isError && (
-          <div className="mt-4 alert alert-danger" role="alert">
-            There's an error while login, please try again!
-          </div>
-        )}
-      </Container>
-    </Layout>
+    <Container className="col-12">
+      <LoginForm onSubmit={onSubmit}>
+        <TextInput
+          label="Email"
+          type="email"
+          id="email"
+          name="email"
+          value={email}
+          required
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setEmail(e.target.value);
+          }}
+        />
+        <TextInput
+          label="Password"
+          id="password"
+          name="password"
+          required
+          type="password"
+          value={password}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setPassword(e.target.value);
+          }}
+        />
+        <div className="form-group">
+          <button type="submit" className="btn btn-primary float-right">
+            Login
+          </button>
+        </div>
+      </LoginForm>
+      {isError && (
+        <div className="mt-4 alert alert-danger" role="alert">
+          There's an error while login, please try again!
+        </div>
+      )}
+    </Container>
   );
 };
 

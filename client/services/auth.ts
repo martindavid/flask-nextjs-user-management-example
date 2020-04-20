@@ -12,12 +12,12 @@ export type GeneralStatusResponse =
   | GeneralApiProblem;
 
 export class AuthApi extends Api {
-  async login(username: string, password: string): Promise<AuthResponse> {
+  async login(email: string, password: string): Promise<AuthResponse> {
     const response: ApiResponse<any> = await this.apisauce.post(
       "/api/v1/auth/login",
       {
-        username: username,
-        password: password
+        email: email,
+        password: password,
       }
     );
 

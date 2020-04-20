@@ -51,7 +51,7 @@ class Users(db.Model, Timestamp):
                 datetime.timedelta(days=exp_days, seconds=exp_sec),
                 'iat':
                 datetime.datetime.utcnow(),
-                'sub':
+                'id':
                 user_id
             }
             return jwt.encode(payload,
@@ -70,7 +70,7 @@ class Users(db.Model, Timestamp):
         try:
             payload = jwt.decode(auth_token,
                                  current_app.config.get('SECRET_KEY'))
-            return payload['sub']
+            return payload['id']
         except jwt.ExpiredSignatureError:
             return 'Signature expired. Please log in again.'
         except jwt.InvalidTokenError:
