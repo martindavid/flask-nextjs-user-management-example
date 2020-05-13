@@ -27,11 +27,13 @@ export const Menu = () => {
           <NavLink>Home</NavLink>
         </Link>
       </NavItem>
-      <NavItem>
-        <Link href="/page2" passHref>
-          <NavLink>Another Page</NavLink>
-        </Link>
-      </NavItem>
+      {auth && (
+        <NavItem>
+          <Link href="/secure-page" passHref>
+            <NavLink>Secure Page</NavLink>
+          </Link>
+        </NavItem>
+      )}
       {!auth ? (
         <NavItem>
           <Link href="/login" passHref>

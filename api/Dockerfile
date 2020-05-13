@@ -15,6 +15,6 @@ RUN pip install -r requirements.txt
 
 # add app
 COPY . /usr/src/app
-
+EXPOSE 5000
 # run server
-CMD python manage.py run -h 0.0.0.0
+CMD python index.py

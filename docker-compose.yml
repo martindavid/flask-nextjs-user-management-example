@@ -32,17 +32,6 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-  nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    ports:
-      - 8080:8080
-    depends_on:
-      - api
-      - client
-
   client:
     build:
       context: ./client
@@ -54,7 +43,7 @@ services:
       - 3008:3000
     environment:
       - NODE_ENV=development
-      - REACT_APP_SERVICE_URL=http://localhost:8080
+      - REACT_APP_SERVICE_URL=http://localhost:5002
       - CHOKIDAR_USEPOLLING=true
     depends_on:
       - api

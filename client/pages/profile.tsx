@@ -11,7 +11,6 @@ const Profile = () => {
       try {
         const api = new UserApi();
         api.setup();
-        // @ts-ignore
         const response = await api.getUserById(
           auth.token,
           auth.decodedToken.id

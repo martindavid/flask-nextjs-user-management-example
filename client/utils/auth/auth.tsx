@@ -30,7 +30,7 @@ export function withAuth(WrappedComponent: any) {
   return class AuthWrapper extends Component<AuthProps> {
     static async getInitialProps(ctx: NextPageContext, props: AuthProps) {
       const { auth } = props;
-      if (auth && auth.isExpired) {
+      if (!auth || (auth && auth.isExpired)) {
         redirectToLogin(ctx.res);
       }
       const initialProps = { auth };
