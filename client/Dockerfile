@@ -1,4 +1,4 @@
-FROM node:13.1.0-alpine
+FROM node:13.13.0-alpine
 
 WORKDIR usr/src/app
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
