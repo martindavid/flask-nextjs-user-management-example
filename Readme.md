@@ -39,8 +39,8 @@ $ docker-compose exec api python manage.py seed_db
 The seeder will contain sample users data:
 
 ```
-username : admin
+username : admin@gmail.com
 password : verysecurepassword
 ```
 
-After you run above commands you can open the application from [http://localhost:8080/](http://localhost:8080/)
+After you run above commands you can open the application from [http://localhost:3008/](http://localhost:3008/)
