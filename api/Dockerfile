@@ -1,16 +1,17 @@
 # Base Image
-FROM python:3.7.2-slim
+FROM python:3.9
 
 # Install netcat
-RUN apt-get update && \
-    apt-get -y install netcat && \
-    apt-get clean
+RUN apt update
+RUN apt -y install netcat-traditional
+RUN apt -y install python3-testresources
+RUN apt clean
 
 # set working directory
 WORKDIR /usr/src/app
 
 # add and install requirements
-COPY ./requirements.txt /usr/src/app/requirements.txt
+COPY reqs/requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r requirements.txt
 
 # add app

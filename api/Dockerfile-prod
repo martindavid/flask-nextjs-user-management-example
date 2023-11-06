@@ -10,7 +10,7 @@ RUN apt-get update && \
 WORKDIR /usr/src/app
 
 # add and install requirements
-COPY ./requirements.txt /usr/src/app/requirements.txt
+COPY reqs/requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r requirements.txt
 
 # add app

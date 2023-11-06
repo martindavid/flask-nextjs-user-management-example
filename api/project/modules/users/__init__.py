@@ -1,4 +1,7 @@
 from http import HTTPStatus
+import restx_monkey as monkey
+
+monkey.patch_restx()
 from flask_restx import Resource, Namespace, fields
 from .models import Users as UsersModel
 from project.modules.utils import authenticate_restful, is_admin

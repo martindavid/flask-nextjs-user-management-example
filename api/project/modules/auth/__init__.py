@@ -38,7 +38,7 @@ class Login(Resource):
                     response_object = {
                         'status': 'success',
                         'message': 'Successfully logged in',
-                        'auth_token': auth_token.decode()
+                        'auth_token': auth_token
                     }
                     return response_object, HTTPStatus.OK
             else:
