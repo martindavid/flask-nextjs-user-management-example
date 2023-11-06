@@ -13,8 +13,8 @@ services:
       - FLASK_CONFIG=development
       - FLASK_ENV=development
       - APP_SETTINGS=project.config.DevelopmentConfig
-      - DATABASE_URL=postgres://postgres:postgres@tutorial-db:5432/dev_db
-      - DATABASE_TEST_URL=postgres://postgres:postgres@tutorial-db:5432/test_db
+      - DATABASE_URL=postgresql://postgres:postgres@tutorial-db:5432/dev_db
+      - DATABASE_TEST_URL=postgresql://postgres:postgres@tutorial-db:5432/test_db
       - SECRET_KEY=ZQbn05PDeA7v11
       - ACTIVATION_TOKEN_MAX_EXPIRATION=172800
     depends_on:
