@@ -19,7 +19,7 @@ export const Footer = () => {
         </span>
         <div className="float-right">
           <a
-            href="https://github.com/martindavid/flask-react-docker-app"
+            href="https://github.com/martindavid/flask-nextjs-user-management-example/pull/21/files"
             target="_blank"
             rel="noopener noreferrer"
           >
